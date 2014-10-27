@@ -4,16 +4,20 @@ var mainState = {
 
     preload: function() {
 
-        //game.load.image('bg', 'assets/background.png');
+        game.load.image('bg', 'assets/background.png');
         game.stage.backgroundColor = '#71c5cf';
-        game.load.image('bird', 'assets/bird.png');
-        game.load.image('pipe', 'assets/pipe.png');
+
+        game.load.image('bird', 'assets/dragon.png');
+        game.load.image('pipe', 'assets/marble.jpg');
+
+        game.load.audio('jump', 'assets/jump.wav');
     },
 
 
     create: function() {
-
+        this.background = this.game.add.sprite(0, 0, 'bg');
         game.physics.startSystem(Phaser.Physics.ARCADE);
+
 
 
         this.bird = this.game.add.sprite(100, 245, 'bird');
@@ -37,6 +41,8 @@ var mainState = {
 
         this.score = 0;
         this.labelScore = this.game.add.text(20, 20, "0", { font: "30px Arial", fill: "#ffffff" });
+
+        this.jumpSound = game.add.audio('jump');
     },
 
 
@@ -54,6 +60,7 @@ var mainState = {
 
     jump: function() {
 
+
       if (this.bird.alive == false)
     return;
 
@@ -61,6 +68,7 @@ var mainState = {
         var animation = game.add.tween(this.bird);
         animation.to({angle: -20}, 100);
         animation.start();
+        this.jumpSound.play();
     },
 
 
